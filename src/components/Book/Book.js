@@ -2,9 +2,18 @@ import React, { Component } from 'react';
 
 class book extends Component {
   render() {
-    const bgImage = this.props.book.imageLinks.thumbnail;
-    const title = this.props.book.title;
-    const authors = this.props.book.authors.join(', ');
+
+    const bgImage = this.props.book.imageLinks
+      ? this.props.book.imageLinks.thumbnail
+      : '';
+    const title = this.props.book.title || 'No title available';
+    const authors = this.props.book.authors
+      ? this.props.book.authors.join(', ')
+      : 'No authors available';
+
+    if (!this.props.book.shelf) {
+      this.props.book.shelf = 'none';
+    }
     const shelf = this.props.book.shelf;
 
     return (
@@ -26,7 +35,7 @@ class book extends Component {
                   this.props.onChangeShelf(this.props.book, ev.target.value)
                 }
               >
-                <option value="none" disabled>
+                <option value="move" disabled>
                   Move to...
                 </option>
                 <option value="currentlyReading">Currently Reading</option>

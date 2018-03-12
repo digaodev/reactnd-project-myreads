@@ -28,14 +28,12 @@ class BooksApp extends React.Component {
     booksArrayCopy.splice(bookIndex, 1, updatedBook);
 
     BooksAPI.update(book, shelf).then(res => {
-      // console.log(res);
       this.setState({ books: booksArrayCopy });
     });
   };
 
   componentDidMount() {
     BooksAPI.getAll().then(books => {
-      console.log(books);
       this.setState({ books });
     });
   }

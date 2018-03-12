@@ -1,21 +1,47 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+import sortBy from 'sort-by';
+
+import * as BooksAPI from '../../BooksAPI';
+
 import Book from '../Book/Book';
 
 class Search extends Component {
   state = {
     searchQuery: '',
-    booksQuery: []
+    booksFound: []
   };
 
-  updateQuery = (query) => {
-    this.setState({ searchQuery: query.trim() })
+  componentWillUnmount() {
+    this.updateQuery('');
   }
 
+  updateQuery = query => {
+    this.setState({ searchQuery: query });
+
+    if (query) {
+      BooksAPI.search(query)
+        .then(queryBooks => {
+          if (queryBooks.length > 0) {
+            const myBooks = this.props.books;
+
+            const mergedBooks = queryBooks.map(queryBook => {
+              const myBook = myBooks.find(myBook => myBook.id === queryBook.id);
+              return { ...queryBook, ...myBook };
+            });
+            this.setState({ booksFound: mergedBooks.sort(sortBy('title')) });
+          } else {
+            this.setState({ booksFound: [] });
+          }
+        })
+        .catch(err => console.log('err', err));
+    }
+  };
+
   render() {
-    const { books, onChangeShelf } = this.props
-    const { searchQuery } = this.state
+    const { onChangeShelf } = this.props;
+    const { searchQuery, booksFound } = this.state;
 
     return (
       <div className="search-books">
@@ -32,21 +58,21 @@ class Search extends Component {
         However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
         you don't find a specific author or title. Every search is limited by search terms.
       */}
-            <input type="text"
-            placeholder="Search by title or author"
-            value={searchQuery}
-            onChange={(event) => this.updateQuery(event.target.value)}/>
+            <input
+              type="text"
+              placeholder="Search by title or author"
+              value={searchQuery}
+              onChange={event => this.updateQuery(event.target.value)}
+            />
           </div>
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {/* {queryBooks.map(book => (
-              <Book
-                key={book.id}
-                book={book}
-                onChangeShelf={onChangeShelf}
-              />
-            ))} */}
+            {booksFound.map(book => {
+              return (
+                <Book key={book.id} book={book} onChangeShelf={onChangeShelf} />
+              );
+            })}
           </ol>
         </div>
       </div>
