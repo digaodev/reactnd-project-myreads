@@ -4,6 +4,8 @@ import Bookshelf from '../Bookshelf/Bookshelf';
 
 class ListBooks extends Component {
   render() {
+    const { books, onChangeShelf } = this.props;
+
     const shelves = [
       {
         title: 'Currently Reading',
@@ -22,13 +24,13 @@ class ListBooks extends Component {
     return (
       <div className="list-books-content">
         <div>
-          {shelves.map(shelf => (
+          {shelves.map(({ type, title }) => (
             <Bookshelf
-              key={shelf.type}
-              title={shelf.title}
-              shelf={shelf.type}
-              books={this.props.books}
-              onChangeShelf={this.props.onChangeShelf}
+              key={type}
+              title={title}
+              shelf={type}
+              books={books}
+              onChangeShelf={onChangeShelf}
             />
           ))}
         </div>

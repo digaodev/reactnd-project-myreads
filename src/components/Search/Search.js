@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { Debounce } from 'react-throttle';
 
 import sortBy from 'sort-by';
 
@@ -36,6 +37,8 @@ class Search extends Component {
           }
         })
         .catch(err => console.log('err', err));
+    } else {
+      this.setState({ booksFound: [] });
     }
   };
 
@@ -58,12 +61,14 @@ class Search extends Component {
         However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
         you don't find a specific author or title. Every search is limited by search terms.
       */}
-            <input
-              type="text"
-              placeholder="Search by title or author"
-              value={searchQuery}
-              onChange={event => this.updateQuery(event.target.value)}
-            />
+            <Debounce time="400" handler="onChange">
+              <input
+                type="text"
+                placeholder="Search by title or author"
+                // value={searchQuery}
+                onChange={event => this.updateQuery(event.target.value)}
+              />
+            </Debounce>
           </div>
         </div>
         <div className="search-books-results">

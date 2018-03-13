@@ -21,13 +21,13 @@ class BooksApp extends React.Component {
   };
 
   changeShelf = (book, shelf) => {
-    const updatedBook = { ...book, shelf };
-    const bookIndex = this.state.books.findIndex(item => item.id === book.id);
-
-    let booksArrayCopy = [...this.state.books];
-    booksArrayCopy.splice(bookIndex, 1, updatedBook);
-
     BooksAPI.update(book, shelf).then(res => {
+      const updatedBook = { ...book, shelf };
+      const bookIndex = this.state.books.indexOf(book);
+
+      let booksArrayCopy = [...this.state.books];
+      booksArrayCopy.splice(bookIndex, 1, updatedBook);
+
       this.setState({ books: booksArrayCopy });
     });
   };
