@@ -9,8 +9,10 @@ class Bookshelf extends Component {
     const filteredBooks = books.filter(book => book.shelf === shelf);
 
     return (
-      <div className="bookshelf">
-        <h2 className="bookshelf-title">{title}</h2>
+      <section className="bookshelf" tabIndex="0" aria-label={title}>
+        <h2 className="bookshelf-title" >
+          {title}
+        </h2>
         <div className="bookshelf-books">
           <ol className="books-grid">
             {filteredBooks.map(book => (
@@ -18,7 +20,7 @@ class Bookshelf extends Component {
             ))}
           </ol>
         </div>
-      </div>
+      </section>
     );
   }
 }

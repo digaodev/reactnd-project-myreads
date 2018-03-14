@@ -33,14 +33,16 @@ class BooksApp extends React.Component {
   };
 
   componentDidMount() {
-    BooksAPI.getAll().then(books => {
-      this.setState({ books });
-    });
+    BooksAPI.getAll()
+      .then(books => {
+        this.setState({ books });
+      })
+      .catch(err => console.error(err));
   }
 
   render() {
     return (
-      <div className="app">
+      <main className="app">
         <Route
           path="/search"
           render={() => (
@@ -67,7 +69,7 @@ class BooksApp extends React.Component {
             </div>
           )}
         />
-      </div>
+      </main>
     );
   }
 }

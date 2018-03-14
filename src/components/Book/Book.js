@@ -31,21 +31,37 @@ class book extends Component {
             />
             <div className="book-shelf-changer">
               <select
+                role="combobox"
+                aria-expanded="false"
+                tabIndex="0"
+                aria-label="Move book to shelf"
                 value={shelf}
                 onChange={ev => onChangeShelf(book, ev.target.value)}
               >
-                <option value="move" disabled>
+                <option role="option" value="move" disabled>
                   Move to...
                 </option>
-                <option value="currentlyReading">Currently Reading</option>
-                <option value="wantToRead">Want to Read</option>
-                <option value="read">Read</option>
-                <option value="none">None</option>
+                <option role="option" value="currentlyReading">
+                  Currently Reading
+                </option>
+                <option role="option" value="wantToRead">
+                  Want to Read
+                </option>
+                <option role="option" value="read">
+                  Read
+                </option>
+                <option role="option" value="none">
+                  None
+                </option>
               </select>
             </div>
           </div>
-          <div className="book-title">{title}</div>
-          <div className="book-authors">{authors}</div>
+          <div className="book-title" tabIndex="0">
+            {title}
+          </div>
+          <div className="book-authors" tabIndex="0">
+            {authors}
+          </div>
         </div>
       </li>
     );

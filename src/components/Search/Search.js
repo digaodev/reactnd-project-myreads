@@ -19,11 +19,12 @@ class Search extends Component {
   }
 
   updateQuery = query => {
-    this.setState({ searchQuery: query });
+    // this.setState({ searchQuery: query });
 
     if (query) {
       BooksAPI.search(query)
         .then(queryBooks => {
+
           if (queryBooks.length > 0) {
             const myBooks = this.props.books;
 
@@ -36,7 +37,7 @@ class Search extends Component {
             this.setState({ booksFound: [] });
           }
         })
-        .catch(err => console.log('err', err));
+        .catch(err => console.error(err));
     } else {
       this.setState({ booksFound: [] });
     }
@@ -44,7 +45,7 @@ class Search extends Component {
 
   render() {
     const { onChangeShelf } = this.props;
-    const { searchQuery, booksFound } = this.state;
+    const { booksFound } = this.state;
 
     return (
       <div className="search-books">
