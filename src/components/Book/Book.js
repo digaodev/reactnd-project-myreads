@@ -1,10 +1,19 @@
 import React, { Component } from 'react';
 
-class book extends Component {
+import PropTypes from 'prop-types';
+
+class Book extends Component {
+  static propTypes = {
+    book: PropTypes.object.isRequired,
+    onChangeShelf: PropTypes.func.isRequired
+  };
+
   render() {
     const { book, onChangeShelf } = this.props;
 
-    const bgImage = book.imageLinks ? book.imageLinks.thumbnail : '';
+    const bgImage = book.imageLinks
+      ? book.imageLinks.thumbnail
+      : 'http://via.placeholder.com/128x193?text=No%20Cover';
 
     const title = book.title || 'No title available';
 
@@ -12,10 +21,7 @@ class book extends Component {
       ? book.authors.join(', ')
       : 'No authors available';
 
-    if (!book.shelf) {
-      book.shelf = 'none';
-    }
-    const shelf = book.shelf;
+    const shelf = book.shelf ? book.shelf : 'none';
 
     return (
       <li>
@@ -68,4 +74,4 @@ class book extends Component {
   }
 }
 
-export default book;
+export default Book;
