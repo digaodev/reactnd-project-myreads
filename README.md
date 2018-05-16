@@ -14,6 +14,10 @@ The main page also has a link to /search, a search page that allows you to find 
 
 The search page has a text input that may be used to find books. As the value of the text input changes, the books that match that query are displayed on the page, along with a control that lets you add the book to your library.
 
+![Screen Shot for main](https://github.com/digaodev/reactnd-project-myreads/blob/docs/docs/Screen_main.png?raw=true)
+
+![Screen Shot for search](https://github.com/digaodev/reactnd-project-myreads/blob/docs/docs/Screen_search.png?raw=true)
+
 ## How to run
 
 To get started:
