@@ -1,4 +1,8 @@
 {
+  "name": "reactnd-project-myreads",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": "https://digaodev.github.io/reactnd-project-myreads",
   "dependencies": {
     "prop-types": "^15.5.8",
     "react": "^15.5.4",
@@ -8,9 +12,11 @@
     "sort-by": "^1.2.0"
   },
   "devDependencies": {
+    "gh-pages": "^1.1.0",
     "react-scripts": "0.9.5"
   },
   "scripts": {
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
